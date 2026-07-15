@@ -1,0 +1,6 @@
+{
+  "name": "BINE MABELO",
+  "description": "Benih Informasi dan Monitoring Elektronik Berbasis Lokasi - Sistem Informasi Terintegrasi untuk Sertifikasi dan Pengawasan Benih Tanaman Pangan dan Hortikultura",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
