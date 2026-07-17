@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Wheat, Sprout, Shield, LogIn, Eye, EyeOff, AlertCircle, 
-  ChevronRight, Landmark, MapPin, Database, Award, User as UserIcon,
-  Wifi, Signal, Battery
+  ChevronRight, Landmark, MapPin, Database, Award, User as UserIcon
 } from 'lucide-react';
 import { User, UserRole } from '../types';
 
@@ -18,20 +17,6 @@ export default function FullScreenLogin({ onLoginSuccess, onEnterAsGuest, usersL
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [currentTime, setCurrentTime] = useState('');
-
-  // Update dynamic clock in simulated Android status bar
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      setCurrentTime(`${hours}:${minutes}`);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,26 +74,6 @@ export default function FullScreenLogin({ onLoginSuccess, onEnterAsGuest, usersL
         className="w-full h-screen sm:w-[395px] sm:h-[812px] sm:my-auto bg-white dark:bg-neutral-900 sm:rounded-[48px] sm:border-[10px] sm:border-neutral-900 sm:ring-[1px] sm:ring-neutral-800/20 sm:shadow-2xl flex flex-col relative overflow-hidden transition-all duration-300"
       >
         
-        {/* 1. Android Status Bar */}
-        <div className="h-11 px-6 bg-slate-50 dark:bg-neutral-900 flex items-center justify-between text-xs font-semibold text-neutral-600 dark:text-neutral-400 select-none shrink-0 border-b border-neutral-100/50 dark:border-neutral-800/30 relative z-20">
-          <div className="font-bold tracking-tight text-[11px] sm:text-xs">
-            {currentTime || '10:00'}
-          </div>
-          
-          {/* Simulated hardware camera notch (visible on desktop frame mockup only) */}
-          <div className="hidden sm:block w-32 h-4.5 bg-neutral-900 rounded-b-2xl absolute left-1/2 -translate-x-1/2 top-0 z-30" />
-          
-          <div className="flex items-center space-x-1.5 text-neutral-500 dark:text-neutral-400">
-            <Signal className="w-3.5 h-3.5" />
-            <span className="text-[9px] font-extrabold tracking-tighter">LTE</span>
-            <Wifi className="w-3.5 h-3.5" />
-            <div className="flex items-center space-x-0.5">
-              <span className="text-[9px] font-bold">85%</span>
-              <Battery className="w-4 h-4 text-emerald-600 fill-emerald-600/20 shrink-0" />
-            </div>
-          </div>
-        </div>
-
         {/* 2. Scrollable App Content Area */}
         <div className="flex-1 flex flex-col justify-between p-6 sm:p-7 overflow-y-auto space-y-6 bg-white dark:bg-neutral-900">
           
@@ -129,9 +94,6 @@ export default function FullScreenLogin({ onLoginSuccess, onEnterAsGuest, usersL
               <div className="flex items-center space-x-1.5 justify-center">
                 <span className="text-xl font-extrabold tracking-tight text-neutral-800 dark:text-neutral-100 font-sans">
                   BINE MABELO
-                </span>
-                <span className="text-[9px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-extrabold px-1.5 py-0.5 rounded-full border border-emerald-500/20 uppercase tracking-wider">
-                  SULTENG
                 </span>
               </div>
               <p className="text-[11px] text-neutral-400 dark:text-neutral-500">
