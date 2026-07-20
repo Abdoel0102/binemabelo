@@ -193,6 +193,7 @@ export default function App() {
     setCurrentUser(user);
     localStorage.setItem('bine_mabelo_user', JSON.stringify(user));
     addSystemLog('Login Berhasil', `Masuk sebagai ${user.role.replace('_', ' ')} (${user.username})`);
+    setActiveMenu('dashboard');
   };
 
   // Logout handler
@@ -393,7 +394,10 @@ export default function App() {
     return (
       <FullScreenLogin 
         onLoginSuccess={handleLogin}
-        onEnterAsGuest={() => setIsGuestEntered(true)}
+        onEnterAsGuest={() => {
+          setIsGuestEntered(true);
+          setActiveMenu('pangan');
+        }}
         usersList={usersList}
       />
     );
@@ -532,18 +536,20 @@ export default function App() {
             {/* Sidebar List Links */}
             <nav className="space-y-1">
               
-              <button
-                id="menu-dash"
-                onClick={() => { setActiveMenu('dashboard'); setIsSidebarOpen(false); }}
-                className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeMenu === 'dashboard'
-                    ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-100/50'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850 hover:text-neutral-900'
-                }`}
-              >
-                <Wheat className="w-4 h-4 text-emerald-600" />
-                <span>Dashboard Utama</span>
-              </button>
+              {currentUser && (
+                <button
+                  id="menu-dash"
+                  onClick={() => { setActiveMenu('dashboard'); setIsSidebarOpen(false); }}
+                  className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    activeMenu === 'dashboard'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-100/50'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850 hover:text-neutral-900'
+                  }`}
+                >
+                  <Wheat className="w-4 h-4 text-emerald-600" />
+                  <span>Dashboard Utama</span>
+                </button>
+              )}
 
               <button
                 id="menu-tp"
@@ -625,33 +631,37 @@ export default function App() {
                 </span>
               </button>
 
-              <button
-                id="menu-riwayat"
-                onClick={() => { setActiveMenu('riwayat'); setIsSidebarOpen(false); }}
-                className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeMenu === 'riwayat'
-                    ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-100/50'
-                    : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850 hover:text-neutral-900'
-                }`}
-              >
-                <History className="w-4 h-4 text-emerald-600" />
-                <span>Riwayat Audit Log</span>
-              </button>
-
-              <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800 space-y-1">
+              {currentUser && (
                 <button
-                  id="menu-settings"
-                  onClick={() => { setActiveMenu('pengaturan'); setIsSidebarOpen(false); }}
+                  id="menu-riwayat"
+                  onClick={() => { setActiveMenu('riwayat'); setIsSidebarOpen(false); }}
                   className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                    activeMenu === 'pengaturan'
+                    activeMenu === 'riwayat'
                       ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-100/50'
                       : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850 hover:text-neutral-900'
                   }`}
                 >
-                  <Settings2 className="w-4 h-4 text-neutral-500" />
-                  <span>Pengaturan</span>
+                  <History className="w-4 h-4 text-emerald-600" />
+                  <span>Riwayat Audit Log</span>
                 </button>
-              </div>
+              )}
+
+              {currentUser && (
+                <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800 space-y-1">
+                  <button
+                    id="menu-settings"
+                    onClick={() => { setActiveMenu('pengaturan'); setIsSidebarOpen(false); }}
+                    className={`w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      activeMenu === 'pengaturan'
+                        ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-100/50'
+                        : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850 hover:text-neutral-900'
+                    }`}
+                  >
+                    <Settings2 className="w-4 h-4 text-neutral-500" />
+                    <span>Pengaturan</span>
+                  </button>
+                </div>
+              )}
 
             </nav>
           </div>
